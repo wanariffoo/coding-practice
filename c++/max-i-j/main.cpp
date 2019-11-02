@@ -9,7 +9,6 @@ int maxDifference(std::vector<int> array)
 {
     int max = 0;
 
-
     for ( int i = 0 ; i < array.size() ; i++ )
     {
         for ( int j = i+1 ; j < array.size() ; j++ )
@@ -28,7 +27,7 @@ int main()
 
     std::cout << "Enter size of array : ";
     std::cin >> N;
-    
+
     std::vector<int> arr(N);
 
     std::cout << "Key in numbers in the array ..." << std::endl;
