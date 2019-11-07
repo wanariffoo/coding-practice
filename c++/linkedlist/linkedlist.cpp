@@ -4,20 +4,21 @@
     - Nodes are zero-indexed
 
     Functions
-                - InsertAtBeginning()   : insert node at the beginning of the list
-essential       - InsertAt()            : insert node at the k-th node
-                - InsertAtEnd()         : insert node at the end of the list
-essential       - RemoveAt()            : remove k-th node
-                - RemoveMiddle()        : removes the middle element of the list
-                - NumberOfNodes()       : returns the size of the lst
-                - isEven()              :
-                - isSorted()            : returns true if the list is sorted lowest to highest
-essential       - PrintAll()            : prints values of all nodes
-                - PrintInReverse()      : prints values in reverse order
-                - BubbleSort()          : sorts list with bubble sort algorithm
-essential       - Swap(x,y)             : swaps x-th and y-th nodes
-                - OccurenceOfInt()      : frequency of an integer in the list
-                - SumOfNLastNodes()     : sum of N last nodes
+                - InsertAtBeginning()       : insert node at the beginning of the list
+essential       - InsertAt()                : insert node at the k-th node
+                - InsertAtEnd()             : insert node at the end of the list
+essential       - RemoveAt()                : remove k-th node
+                - RemoveMiddle()            : removes the middle element of the list
+                - RemoveDuplicatesSorted()  : removes duplicates in a sorted array
+                - NumberOfNodes()           : returns the size of the lst
+                - isEven()                  :
+                - isSorted()                : returns true if the list is sorted lowest to highest
+essential       - PrintAll()                : prints values of all nodes
+                - PrintInReverse()          : prints values in reverse order
+                - BubbleSort()              : sorts list with bubble sort algorithm
+essential       - Swap(x,y)                 : swaps x-th and y-th nodes
+                - OccurenceOfInt()          : frequency of an integer in the list
+                - SumOfNLastNodes()         : sum of N last nodes
     
 */
 
@@ -98,27 +99,47 @@ public:
 
     }
 
-    // TODO: doesn't work 
+
+    // 1 2 3 1 5
     void RemoveDuplicates()
     {
-        node* current = head;
+        node* temp1;
+        node* temp2;
+
+        temp1 = goTo(0);
+
+        for( int i = 1; i < size; ++i )
+        {
+            temp2 = goTo(i);
+            if( temp1->value == temp2->value )
+            {
+                RemoveAt(i);
+                --i;
+            }
+        }
+    }
+
+
+    void RemoveDuplicatesSorted()
+    {
+        node* current = head->next;
+        node* previous = head;
         int data;
         
-        for ( int i = 0 ; current->next != nullptr ; ++i )
+        for ( int i = 1 ; i < size ; ++i )
         {
             data = current->value;
-            std::cout << "data = " << data << std::endl;
-            if ( data == current->next->value )
+            
+            if ( data == previous->value )
             {
-                std::cout << "data = " << data << " , current->value = " << current->value << std::endl;
-                current->next = current->next->next;
-                current = current->next->next;
+                RemoveAt(i-1);
             }
             else
             {
+            previous = current;
             current = current->next;
             }
-            std::cout << "end of for" << std::endl;
+            
         }
     }
 
@@ -299,16 +320,15 @@ int main()
     LinkedList myList;
     myList.InsertAtBeginning(30);
     myList.InsertAtBeginning(20);
-    myList.InsertAtBeginning(20);
     myList.InsertAtBeginning(10);
     myList.InsertAtBeginning(25);
+    myList.InsertAtBeginning(20);
 
     myList.PrintAll();
 
     myList.RemoveDuplicates();
 
     myList.PrintAll();
-
 
 
 
