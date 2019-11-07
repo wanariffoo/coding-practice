@@ -64,6 +64,10 @@ int main()
 
     cout << "Input:" << endl;
     cin >> T;
+
+    for ( int i = 0 ; i < T ; ++i )
+    {
+
     cin >> N;
 
     if ( T == 0 || T > 107 || N == 0 || N > 107)
@@ -79,6 +83,7 @@ int main()
 
     cout << "Output:" << endl;
     cout << findOneElement(A) << endl;
+    }
 
 
 }
