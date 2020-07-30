@@ -121,6 +121,29 @@ public:
         cout << endl;
     }
 
+    void insertAtTail(int value)
+    {
+        insertAtTail(head, value);
+    }
+
+    void insertAtTail(node* root, int value)
+    {
+
+        // new node
+        node *newnode = new node;
+        newnode->data = value;
+        newnode->next = nullptr;
+
+        // temp node
+        node *temp = root;
+
+        while ( temp->next != nullptr )
+            temp = temp->next;
+
+        temp->next = newnode;
+        length++;
+
+    }
 
 
 
@@ -135,11 +158,11 @@ int main()
     mylist.insertNode(20);
     mylist.insertNode(40);
     mylist.insertNode(40);
-
+    mylist.insertAtTail(50);
     mylist.printNodes();
 
 
-    mylist.findNode(40);
+    // mylist.findNode(40);
 
 
     

@@ -5,15 +5,16 @@
         - delete
         - findMin
         - findMax
-        - printInOrder
-        - traverse:
+        - display through these traversals
             - preorder
             - inorder
             - postorder
+        - getHeight
 
 */
 
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -36,12 +37,16 @@ class BST
     void inorder(Node* t);
     void preorder(Node* t);
     void postorder(Node* t);
+    void levelorder(Node* t);
 
     Node* find(Node* t, int value);
     Node* findMin(Node* t);
     Node* findMax(Node* t);
-
+    
     Node* remove(Node* t, int value);
+
+    int getHeight(Node* t);
+    void printLevel(Node* t, int level);
     
 public:
 
@@ -99,12 +104,21 @@ public:
                 postorder(root);
                 cout << endl;
                 break;
+
+            case 4:
+                levelorder(root);
+                break;
         }
     }
 
     void remove(int value)
     {
         root = remove(root, value);
+    }
+
+    int getHeight()
+    {
+        return getHeight(root);
     }
 
 };
@@ -131,13 +145,18 @@ int main()
     // 1 : inorder
     // 2 : preorder
     // 3 : postorder
-    mytree.display(1);
+    mytree.display(4);
     
     // cout << mytree.search(3) << endl;
     cout << "Min: " << mytree.findMin() << endl;
     cout << "Max: " << mytree.findMax() << endl;
 
     mytree.remove(15);
+    cout << "Tree max height: " << mytree.getHeight() << endl;
+
+    
+
+
 
 }
 
@@ -219,6 +238,19 @@ void BST::postorder(Node* t)
 
 }
 
+// level-order
+void BST::levelorder(Node* t)
+{
+    int max_height = getHeight(t);
+
+    // print nodes on every level
+    for ( int i = 0 ; i < max_height ; i++ )
+    {
+        printLevel( t, i );
+        cout << endl;
+    }
+}
+
 BST::Node* BST::find(Node* t, int value)
 {
     // base: if not found
@@ -289,4 +321,38 @@ BST::Node* BST::remove(Node* t, int value)
 
         return t;
 
+}
+
+int BST::getHeight(Node* t)
+{
+    // height of root = max( getHeight(LHS), getHeight(RHS) ) + 1
+    //
+    // left height <- getHeight(t->left)
+    // right height <- getHeight(t->right)
+    //
+    // return max(left height, right height)
+
+    // exit condition / base
+    if ( t == nullptr )
+        return -1;  // because you want to negate the return max() + 1
+                    // else, leaf nodes will have a height of 1
+
+    int left_height = getHeight(t->left);
+    int right_height = getHeight(t->right);
+
+    return max(left_height, right_height) + 1;
+
+}
+
+void BST::printLevel(Node* t, int level)
+{
+    if (t == nullptr)  
+        return;  
+    if (level == 0)  
+        cout << t->data << " ";  
+    else if (level > 0)  
+    {  
+        printLevel(t->left, level-1);  
+        printLevel(t->right, level-1);  
+    }  
 }

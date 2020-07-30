@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/insert-a-node-at-a-specific-position-in-a-linked-list/problem
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -71,12 +72,20 @@ void free_singly_linked_list(SinglyLinkedListNode* node) {
  */
 SinglyLinkedListNode* insertNodeAtPosition(SinglyLinkedListNode* head, int data, int position) {
 
-    // go to node (i-1)
-    // set your temp node's ->next to node(i-1)'s next
-    // set node(i-1)->next to your temp node
+    SinglyLinkedListNode *current;
+    // SinglyLinkedListNode *temp = new SinglyLinkedListNode;
+    SinglyLinkedListNode* temp = (struct SinglyLinkedListNode*) malloc(sizeof(struct SinglyLinkedListNode));
+    current = head;
+    temp->data = data;
 
-    SinglyLinkedListNode *temp = new SinglyLinkedListNode;
+    // go to node i-1
+    for ( int i = 0 ; i < position-1 ; i++ )
+        current = current->next;
 
+    temp->next = current->next;
+    current->next = temp;
+
+    return head;
 
 }
 
